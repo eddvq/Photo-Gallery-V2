@@ -10,7 +10,6 @@ var image;
 $("body").append($overlay);
 $overlay.append($image);
 $overlay.append($title);
-
 $overlay.append($caption);
 
 
@@ -21,7 +20,7 @@ $(function(){
   for(var i=0; i < pics.length; i+= 1){
       $fullpic = $('<li><img src="images/thumbnails/'+pics[i]['image']+'" title="'+pics[i]['title']+'" alt="'+pics[i]['caption']+'">')
     //append these newly minted <li>+<im>
-    $('#gallery').append($fullpic);
+    $('#gallery').append($fullpic);8
   }
 });
 
@@ -36,7 +35,7 @@ $('#gallery').on('click','li',function(){
     $overlay.show();
     image = $(this).children('img');
     imageLoader();
-    
+    console.log(image);
     //Show larger image w src, alt, title 
 });
 
@@ -45,15 +44,32 @@ $('#gallery').on('click','li',function(){
 function imageLoader(){
     var imageLocate = image.attr('src').replace('/thumbnails/', '/');
     $image.attr('src', imageLocate);
-    
     var imageTitle = image.attr('title');
     $title.text(imageTitle);
     
     var imageCaption = image.attr('alt')
     $caption.text(imageCaption);
                       
-}
+};
 
+//Search Functionality 
+
+$("#search").on('keyup',function(){
+    search=$(this).val().toLocaleLowerCase();
+
+    for(var i=1; i <= pics.length; i++){
+        title = pics[i-1]['caption'].toLowerCase();
+        console.log(title);
+        var list = $('#gallery li:nth-child('+i +')');
+        console.log(list);
+        if( title.indexOf(search) >=0 ){
+            list.show();
+        }else{
+            list.hide();
+    }
+  }
+    
+});
 
 
 
