@@ -70,3 +70,8 @@ input[type="text"]{
         margin-bottom: 11%;
 
 }
+
+#buster {
+    width: 30px;
+    margin-top: 10px;
+}
