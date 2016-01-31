@@ -1,3 +1,19 @@
+//Variables
+var $overlay = $('<div id="overlay"></div>');
+var $image = $('<img>');
+var $caption = $('<p class="caption"></p>');
+var $title = $('<h3 class="title"></h3>');
+
+var image;
+
+
+$("body").append($overlay);
+$overlay.append($image);
+$overlay.append($title);
+
+$overlay.append($caption);
+
+
 //Img Loader - Images need to be put into the empty space
 
 $(function(){
@@ -9,5 +25,35 @@ $(function(){
   }
 });
 
-/*Things I noted: you forgot to close the image tag, and that <li> closes itself. 
-pics refers to the image bank set up, and the i decides which image object is going to be chosen. Ex. pics[6]['image'], is going to select the sixth object in the array and return the image attribute. */
+//Overlay Cancel 
+$overlay.on('click', function(){
+  $overlay.hide();
+});
+
+
+//Overlay Create + Show pic
+$('#gallery').on('click','li',function(){
+    $overlay.show();
+    image = $(this).children('img');
+    imageLoader();
+    
+    //Show larger image w src, alt, title 
+});
+
+//Image Loader
+
+function imageLoader(){
+    var imageLocate = image.attr('src').replace('/thumbnails/', '/');
+    $image.attr('src', imageLocate);
+    
+    var imageTitle = image.attr('title');
+    $title.text(imageTitle);
+    
+    var imageCaption = image.attr('alt')
+    $caption.text(imageCaption);
+                      
+}
+
+
+
+
