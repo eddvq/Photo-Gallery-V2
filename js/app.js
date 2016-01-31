@@ -1,14 +1,24 @@
 //Variables
 var $overlay = $('<div id="overlay"></div>');
-var $image = $('<img>');
+var $image = $('<img class="show">');
 var $caption = $('<p class="caption"></p>');
 var $title = $('<h3 class="title"></h3>');
+var $leftArrow = $("<a href='#'><img src='images/buttons/arrow.png' id='buster'></a>").addClass('leftArrow');//here
+var $rightArrow = $("<a href='#'><img src='images/buttons/arrow.png'></a>").addClass('rightArrow');
+
 
 var image;
 
 
 $("body").append($overlay);
+
+
+$overlay.append($leftArrow);
+
 $overlay.append($image);
+
+$overlay.append($rightArrow);
+
 $overlay.append($title);
 $overlay.append($caption);
 
@@ -56,12 +66,13 @@ function imageLoader(){
 
 $("#search").on('keyup',function(){
     search=$(this).val().toLocaleLowerCase();
-
+    //if i is zero it's goign to look at the document not li
     for(var i=1; i <= pics.length; i++){
+        //this grabs the title from pics
+        //you need the minus otherwise its skips the zero object
         title = pics[i-1]['caption'].toLowerCase();
-        console.log(title);
+        //this grabs the gallery's li's child
         var list = $('#gallery li:nth-child('+i +')');
-        console.log(list);
         if( title.indexOf(search) >=0 ){
             list.show();
         }else{
